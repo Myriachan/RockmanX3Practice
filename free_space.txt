@@ -1,0 +1,28 @@
+// Incomplete list of free space in the ROM:
+//
+//   00FE00-00FEEF    240 bytes
+//   00FF00-00FFAF    176 bytes
+//   01FF80-01FFFF    128 bytes
+//   028380-0283FF    128 bytes
+//   028940-0289FF    192 bytes
+//   028F80-028FFF    128 bytes
+//   029340-0293FF    192 bytes
+//   029720-0297FF    224 bytes
+//   029940-0299FF    192 bytes
+//   029BA0-029BFF     96 bytes
+//   029D50-029FFF    688 bytes
+//   02FF80-02FFFF    128 bytes
+//   03FA80-03FFFF   1408 bytes
+//   04FFD0-04FFFF     48 bytes
+//   05F740-05F7FF    192 bytes
+//   05FC00-05FFFF   1024 bytes
+//   06FC00-06FFFF   1024 bytes
+//   08DE90-08DFFF    368 bytes
+//   08FB50-08FEFF    944 bytes
+//   08FF60-08FFFF    160 bytes
+//   0C9EE0-0C9FFF    288 bytes
+//   0CF400-0CFFFF   3072 bytes
+//   0EFFD0-0EFFFF     48 bytes
+//   12E810-12FFFF   6128 bytes \ These two are adjacent
+//   138000-13BFFF  16384 bytes / in file addresses.
+//   2B8000-2BE1FF  25088 bytes
