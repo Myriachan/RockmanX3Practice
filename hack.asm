@@ -6,7 +6,7 @@ arch snes.cpu
 
 // LoROM org macro - see bass's snes-cpu.asm "seek" macro
 macro reorg n
-	org (({n} & 0x7f0000) >> 1) | ({n} & 0x7fff)
+	org ((({n}) & 0x7f0000) >> 1) | (({n}) & 0x7fff)
 	base {n}
 endmacro
 
@@ -21,6 +21,13 @@ endmacro
 // Allows saving the current location and seeking somewhere else.
 define savepc push origin, base
 define loadpc pull base, origin
+
+// Warn if the expression is false.
+macro static_assert n
+	if ({n}) == 0
+		warning "static assertion failure"
+	endif
+endmacro
 
 
 // Copy the original ROM to initialize the address space.
@@ -57,7 +64,8 @@ eval nmi_control_shadow $7E00C3
 eval hdma_control_shadow $7E00C4
 eval rng_value $7E09D6
 eval controller_1_disable $7E1F63
-//x3fixme eval state_vars $7E1F70
+eval event_flags $7E1FB2
+eval state_vars $7E1FA0
 //x3fixme eval current_level $7E1F7A
 //x3fixme eval life_count $7E1F80
 //x3fixme eval midpoint_flag $7E1F81
@@ -91,9 +99,11 @@ eval ram_nmi_after_controller $7E2621  // RAM copy of rom_nmi_after_controller
 //x3fixme eval rom_config_bgm $80EC30
 //x3fixme eval rom_config_se $80EC74
 //x3fixme eval rom_config_exit $80ECC0
-eval rom_default_config $86E0E4
+eval rom_default_config $06E0E4
+eval rom_level_table $069C04
 // SRAM addresses for saved states
 eval sram_start $700000
+eval sram_previous_command $700200
 eval sram_wram_7E0000 $710000
 eval sram_wram_7E8000 $720000
 eval sram_wram_7F0000 $730000
@@ -105,8 +115,7 @@ eval sram_oam $772200
 eval sram_dma_bank $770000
 eval sram_validity $774000
 eval sram_saved_sp $774004
-eval sram_vm_return $774006
-eval sram_previous_command $774008
+eval sram_saved_dp $774006
 // SRAM addresses for general config.  These are at lower addresses to support
 // emulators and cartridges that don't support 256 KB of SRAM.
 eval sram_config_valid $700100
@@ -120,6 +129,14 @@ eval sram_config_musicoff {sram_config_extra} + 4
 eval sram_config_godmode {sram_config_extra} + 5
 eval sram_config_extra_size 6   // adjust this as more are added
 eval sram_banks $08
+// Constants for categories and routing.
+eval category_anyp 0
+eval num_categories 1
+eval route_anyp_default 0
+eval num_routes_anyp 1
+// State table index offsets for special data.
+eval state_entry_size 64
+eval index_offset_vile_flag (10 * 2) + 0
 
 
 // Header edits

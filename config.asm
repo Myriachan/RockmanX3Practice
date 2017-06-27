@@ -16,16 +16,31 @@ is_config_saved:
 
 	// Check for bad extra configuration.
 	// Loads both route and category since A is 16-bit.
-	lda.l {sram_config_category}
-	and.w #~($0301)
-	bne .not_saved
+	lda.l {sram_config_category}  // also sram_config_route
+	sep #$20
+	// Validate category.  XBA will get the route.
+	cmp.b {num_categories}
+	beq .category_anyp
+	bra .not_saved
+
+.category_anyp:
+	xba
+	cmp.b #{num_routes_anyp}
+	bcc .not_saved
+	bra .routing_ok
+
+.routing_ok:
 	// These are simple Boolean flags.
+	rep #$20
 	lda.l {sram_config_midpointsoff}  // also sram_config_keeprng
 	and.w #~($0101)
 	bne .not_saved
 	lda.l {sram_config_musicoff}  // also sram_config_godmode
 	and.w #~($0101)
+	beq .saved
 .not_saved:
+	rep #$22  // clear zero flag in addition to setting A = 16-bit again.
+.saved:
 	rts
 
 

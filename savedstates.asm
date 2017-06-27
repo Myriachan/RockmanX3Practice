@@ -299,6 +299,9 @@ nmi_hook:
 	rep #$30
 	tsa
 	sta.l {sram_saved_sp}
+	// Save direct pointer.
+	tda
+	sta.l {sram_saved_dp}
 
 	// Mark the save as valid.
 	lda.w #{magic_sram_tag_lo}
@@ -449,6 +452,9 @@ nmi_hook:
 	rep #$30
 	lda.l {sram_saved_sp}
 	tas
+	// Load direct pointer.
+	lda.l {sram_saved_dp}
+	tad
 
 	// Restore null bank now that we have a working stack.
 	pea $0000
