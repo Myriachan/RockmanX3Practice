@@ -156,7 +156,7 @@ nmi_hook:
 	sta.w $0000
 	inc
 	iny
-	cpy.b #({sram_start} + {sram_size}) >> 16
+	cpy.b #(({sram_start} >> 16) + {sram_banks})
 	bne .sram_test_write_loop
 
 	// Read the data back and verify it.
@@ -169,7 +169,7 @@ nmi_hook:
 	bne .error_sound_return
 	inc
 	iny
-	cpy.b #({sram_start} + {sram_size}) >> 16
+	cpy.b #(({sram_start} >> 16) + {sram_banks})
 	bne .sram_test_read_loop
 
 
