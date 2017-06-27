@@ -29,7 +29,27 @@
 
 // Disable stage intros.
 {savepc}
-	// bne 9597 -> bra 9A53
+	// beq 9A53 -> bra 9A53
 	{reorg $009A60}
 	bra $009A53
+{loadpc}
+
+
+// Disable weapon get screen.
+{savepc}
+	// Delete a conditional branch on skipping the "weapon get" scene.
+	// beq 9DD5 -> bra 9DD5
+	{reorg $009DD0}
+	bra $009DD5
+{loadpc}
+
+
+// Disable several cutscenes.
+// * Bit/Byte cutscene after beating two Mavericks.
+// * Dr. Cain cutscene after beating all eight Mavericks.
+// * Ending.
+{savepc}
+	// Skip over a bunch of checks and go to the simple case.
+	{reorg $009DD8}
+	bra $009E02
 {loadpc}
