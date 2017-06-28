@@ -36,8 +36,8 @@ incbin "RockmanX3-original.smc"
 
 
 // Version tags
-eval version_major 1
-eval version_minor 0
+eval version_major 0
+eval version_minor 8
 eval version_revision 0
 // Constants
 eval stage_intro 0
