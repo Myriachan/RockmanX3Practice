@@ -21,11 +21,6 @@ stage_select_init_hook:
 	lda.b #2
 	jsr load_state_table
 
-	// We need to make sure that the "Zero already used this level"
-	// flag is cleared when starting a level.
-	lda.b #1
-	trb.w {state_used_zero}
-
 	// Jump to original code.  It will RTL for us.
 	jml $038063
 
@@ -185,6 +180,11 @@ choose_stage_hook:
 
 	// Load the level.
 	sep #$30
+
+	// Clear this flag, regardless of what the state table says.
+	// This flag causes first-time-in-stage flags to reset.
+	stz.w {state_level_already_loaded}
+
 	jml $00C4F5
 
 
