@@ -38,7 +38,7 @@ incbin "RockmanX3-original.smc"
 // Version tags
 eval version_major 0
 eval version_minor 8
-eval version_revision 0
+eval version_revision 1
 // Constants
 eval stage_intro 0
 eval stage_doppler1 9
@@ -66,6 +66,7 @@ eval rng_value $7E09D6
 eval controller_1_disable $7E1F63
 eval event_flags $7E1FB2
 eval state_vars $7E1FA0
+eval state_used_zero $7E1FE1
 //x3fixme eval current_level $7E1F7A
 //x3fixme eval life_count $7E1F80
 //x3fixme eval midpoint_flag $7E1F81

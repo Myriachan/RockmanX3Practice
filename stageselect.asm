@@ -21,6 +21,11 @@ stage_select_init_hook:
 	lda.b #2
 	jsr load_state_table
 
+	// We need to make sure that the "Zero already used this level"
+	// flag is cleared when starting a level.
+	lda.b #1
+	trb.w {state_used_zero}
+
 	// Jump to original code.  It will RTL for us.
 	jml $038063
 
